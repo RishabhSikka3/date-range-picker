@@ -3,6 +3,26 @@ import "./App.css";
 import { DateRangePicker } from "./components/DateRangePicker";
 
 function App() {
+  function calculateDateBefore(days: number): Date {
+    const today = new Date();
+    return new Date(
+      today.getFullYear(),
+      today.getMonth(),
+      today.getDate() - days
+    );
+  }
+
+  const predefinedRanges = [
+    {
+      label: "Last 7 days",
+      range: [calculateDateBefore(7), new Date()],
+    },
+    {
+      label: "Last 30 days",
+      range: [calculateDateBefore(30), new Date()],
+    },
+  ];
+
   return (
     <div className="App">
       <DateRangePicker
@@ -13,11 +33,11 @@ function App() {
         predefinedRanges={[
           {
             label: "Last 7 days",
-            range: [new Date(2023, 8, 1), new Date(2023, 8, 7)],
+            range: [calculateDateBefore(7), new Date()],
           },
           {
             label: "Last 30 days",
-            range: [new Date(2023, 7, 1), new Date(2023, 7, 30)],
+            range: [calculateDateBefore(30), new Date()],
           },
         ]}
       />
